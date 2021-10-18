@@ -1,0 +1,120 @@
+<!-- Credit: https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/ --
+   used to find how to remove duplicates in array with new set -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<title>Amicable Numbers</title>
+</head>
+
+<script type="text/javascript" language="javascript">
+
+function factor(facnum) {
+ arr = new Array;
+ arr.push(1);
+ index = 2;
+ while(facnum > index && input(index, arr) == 0) {
+  <!-- Check if factor before inputting into array -->
+  if(isAFactor(facnum, index) == true) {
+   arr.push(index);
+   newnum = facnum/index;
+   arr.push(newnum);
+  }
+  index++;
+ }
+ return arr;
+}
+
+function isAFactor(x, y) {
+ if ((x % y) == 0) {
+  return true;
+ } else {
+  return false;
+ }
+}
+        
+function input(facnum, arr) {
+ bool = 0;
+ for(i = 0; i < arr.length; i++) { 
+   if(arr[i] == facnum) {
+   bool = 1;
+  }
+ }
+ return bool;
+}
+
+function addnum(arr) {
+ comp = 0;
+  <!-- Adding nums for amicable comparison later -->
+ for(j = 0; j < arr.length; j++) {
+  comp = comp + arr[j];
+ }
+ return comp;
+}
+
+function applyfunc() {
+ var numbone = document.getElementById("numone").value;
+ var numbtwo = document.getElementById("numtwo").value;
+
+ document.getElementById("myText").innerHTML = numbone;
+ document.getElementById("myText2").innerHTML = numbtwo;
+
+ firstfac = factor(numbone);
+ firstfac.sort(function(a, b){return a - b});
+ let uniquefirst = [...new Set(firstfac)];
+
+ secfac = factor(numbtwo);
+ secfac.sort(function(a, b){return a - b});
+ let uniquesec = [...new Set(secfac)];
+ alert("First number's factors are: " + uniquefirst + "\n" + 
+       "Second number's factors are: " + uniquesec);
+
+ firstcomp = addnum(firstfac);
+ seccomp = addnum(secfac);
+
+ var no = "not", yes = "";
+ if(firstcomp == numbtwo && seccomp == numbone) {
+  document.getElementById("myText3").innerHTML = yes;
+ } else {
+  document.getElementById("myText3").innerHTML = no;
+ }
+
+ var text1 = "The numbers: ", text2 = " and ", text3 = " are ",
+     text4 = " amicable numbers";
+ document.getElementById("myText4").innerHTML = text1;
+ document.getElementById("myText5").innerHTML = text2;
+ document.getElementById("myText6").innerHTML = text3;
+ document.getElementById("myText7").innerHTML = text4;
+}
+
+</script>
+
+<body>
+
+<style>
+ form {
+  border: 2px solid black;
+  padding: 5px;
+  background-color: #eeeeee;
+ }
+</style>
+
+<h1>Amicable Numbers</h1>
+
+<form name="form">
+Enter first number: <input type="text" name="numone" id="numone"><br><br>
+Enter second number: <input type="text" name="numtwo" id="numtwo"><br><br>
+<input type="button" value = "Calculate" onclick ="applyfunc()">
+</form>
+
+<div>
+ <p><span id="myText4"></span><span id="myText"></span><span id="myText5">
+    </span><span id="myText2"></span><span id="myText6"></span><span id="myText3">
+    </span><span id="myText7"></span>
+  </p>
+</div>
+
+</body>
+</html>
